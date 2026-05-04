@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APP CONVI+ · CEIP Campos de Almería</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#1D9E75;--verde-dark:#0F6E56;--verde-deep:#085041;
+  --verde-light:#E1F5EE;--verde-mid:#9FE1CB;--verde-border:#5DCAA5;
+  --azul-light:#E6F1FB;--azul:#378ADD;--morado-light:#EEEDFE;--morado:#7F77DD;
+  --amarillo-light:#FAEEDA;--amarillo:#EF9F27;
+  --bg:#F7F7F4;--white:#fff;--text:#1a1a18;--text2:#555;--text3:#888;
+  --border:#E0E0D8;--border2:#ccc;
+  --radius:10px;--radius-sm:6px;--radius-lg:14px;
+  --shadow:0 2px 8px rgba(0,0,0,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+h1,h2,.serif{font-family:'DM Serif Display',serif}
+
+/* ─── LAYOUT ─── */
+.site{max-width:960px;margin:0 auto;padding:1.25rem 1rem}
+
+/* ─── HEADER ─── */
+.header{display:flex;align-items:center;gap:14px;padding:.9rem 1.2rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);margin-bottom:1rem;box-shadow:var(--shadow)}
+.logo{width:68px;height:52px;border-radius:var(--radius);background:var(--verde);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0;gap:1px}
+.logo-top{font-family:'DM Sans',sans-serif;font-size:8px;font-weight:600;letter-spacing:.08em}
+.logo-bottom{font-family:'DM Serif Display',serif;font-size:14px;letter-spacing:.02em}
+.header-text h1{font-size:17px;font-weight:500;color:var(--text)}
+.header-text p{font-size:12px;color:var(--text3);margin-top:2px}
+.header-right{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.lang-bar{display:flex;gap:3px}
+.lang-btn{padding:4px 10px;border:1px solid var(--border2);border-radius:99px;font-size:11px;cursor:pointer;background:var(--bg);color:var(--text2);transition:all .2s;font-family:'DM Sans',sans-serif}
+.lang-btn.active{background:var(--verde);color:#fff;border-color:var(--verde)}
+.lang-label{font-size:10px;color:var(--text3)}
+
+/* ─── NAV ─── */
+.nav{display:flex;gap:4px;margin-bottom:1rem;flex-wrap:wrap}
+.nav button{padding:7px 13px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--white);color:var(--text2);font-size:12.5px;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.nav button:hover{background:var(--bg)}
+.nav button.active{background:var(--verde);color:#fff;border-color:var(--verde);font-weight:500}
+
+/* ─── PANEL ─── */
+.panel{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;min-height:440px;box-shadow:var(--shadow)}
+.hidden{display:none!important}
+.info-panel{color:var(--text3);font-size:14px;padding:3rem;text-align:center}
+.section-title{font-family:'DM Serif Display',serif;font-size:16px;color:var(--text);margin-bottom:1rem;padding-bottom:8px;border-bottom:1px solid var(--border)}
+
+/* ─── ORIENTACIÓN HOME ─── */
+.or-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.or-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem;cursor:pointer;transition:all .2s}
+.or-card:hover{border-color:var(--verde);background:var(--verde-light)}
+.or-card .icon{font-size:20px;margin-bottom:6px}
+.or-card h3{font-size:13px;font-weight:500;color:var(--text)}
+.or-card p{font-size:11.5px;color:var(--text3);margin-top:2px}
+
+/* ─── CONVI+ CARD ─── */
+.convi-card{background:var(--verde-light);border:1px solid var(--verde-border);border-radius:var(--radius-lg);padding:1.1rem;cursor:pointer;transition:all .2s;grid-column:1/-1}
+.convi-card:hover{background:var(--verde-mid);border-color:var(--verde-dark)}
+.convi-inner{display:flex;align-items:center;gap:14px}
+.convi-logo{width:68px;height:56px;border-radius:var(--radius);background:var(--verde);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0;gap:1px}
+.convi-logo .lt{font-size:8px;font-weight:600;letter-spacing:.08em}
+.convi-logo .lb{font-family:'DM Serif Display',serif;font-size:15px}
+.convi-card h2{font-family:'DM Serif Display',serif;font-size:20px;color:var(--verde-deep)}
+.convi-card p{font-size:12.5px;color:var(--verde-dark);margin-top:4px}
+.badge{display:inline-block;background:var(--verde);color:#fff;font-size:11px;padding:3px 12px;border-radius:99px;margin-top:8px;font-weight:500}
+
+/* ─── ACTUACIONES LIST ─── */
+.act-list{display:flex;flex-direction:column;gap:6px;margin-top:1rem}
+.act-item{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.65rem .9rem;display:flex;align-items:flex-start;gap:10px;cursor:pointer;transition:all .2s}
+.act-item:hover{border-color:var(--verde);background:var(--verde-light)}
+.act-num{min-width:22px;height:22px;border-radius:50%;background:var(--verde);color:#fff;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.act-name{font-size:12.5px;font-weight:500;color:var(--text)}
+.act-meta{font-size:11px;color:var(--text3);margin-top:2px}
+
+/* ─── AGENDA VIEW ─── */
+.agenda-view{display:flex;flex-direction:column;gap:1rem}
+.back-btn{background:none;border:1px solid var(--border2);border-radius:var(--radius-sm);padding:5px 13px;font-size:12.5px;color:var(--text2);cursor:pointer;align-self:flex-start;font-family:'DM Sans',sans-serif}
+.back-btn:hover{background:var(--bg)}
+.agenda-header{display:flex;align-items:center;gap:12px}
+.agenda-logo{width:52px;height:42px;border-radius:var(--radius-sm);background:var(--verde);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;gap:1px}
+.agenda-logo .alt{font-size:7px;font-weight:600;letter-spacing:.08em}
+.agenda-logo .alb{font-family:'DM Serif Display',serif;font-size:12px}
+
+/* ─── TABS ─── */
+.tabs{display:flex;gap:4px;flex-wrap:wrap}
+.tab{padding:6px 13px;border:1px solid var(--border2);border-radius:var(--radius-sm);font-size:12px;cursor:pointer;background:var(--bg);color:var(--text2);font-family:'DM Sans',sans-serif;transition:all .2s}
+.tab.active{background:var(--verde);color:#fff;border-color:var(--verde)}
+.notif{width:7px;height:7px;background:#E24B4A;border-radius:50%;display:inline-block;margin-left:3px;vertical-align:middle}
+
+/* ─── MENSAJES ─── */
+.msg-form{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem;margin-bottom:1rem}
+.msg-form label{font-size:11.5px;color:var(--text3);display:block;margin-bottom:3px;font-weight:500}
+.msg-form select,.msg-form textarea,.msg-form input{width:100%;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius-sm);font-size:12.5px;background:var(--white);color:var(--text);margin-bottom:9px;font-family:'DM Sans',sans-serif}
+.btn{background:var(--verde);color:#fff;border:none;border-radius:var(--radius-sm);padding:8px 18px;font-size:12.5px;cursor:pointer;font-weight:500;font-family:'DM Sans',sans-serif}
+.btn:hover{background:var(--verde-dark)}
+.msg-list{display:flex;flex-direction:column;gap:7px}
+.msg{padding:.7rem .9rem;border-radius:var(--radius-sm);font-size:12.5px;line-height:1.5}
+.msg.tutor{background:var(--verde-light);border-left:3px solid var(--verde);color:var(--verde-deep)}
+.msg.familia{background:var(--azul-light);border-left:3px solid var(--azul);color:#042C53}
+.msg.orientadora{background:var(--morado-light);border-left:3px solid var(--morado);color:#26215C}
+.msg-meta{font-size:10.5px;opacity:.7;margin-bottom:3px;font-weight:600}
+.toast{background:var(--verde-light);border:1px solid var(--verde-border);border-radius:var(--radius-sm);padding:.6rem .9rem;font-size:12.5px;color:var(--verde-deep);display:none;margin-bottom:8px}
+
+/* ─── RECURSOS ─── */
+.rec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:7px}
+.rec-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.7rem;cursor:pointer;transition:all .2s}
+.rec-card:hover{border-color:var(--verde);background:var(--verde-light)}
+.rec-icon{font-size:18px;margin-bottom:5px}
+.rec-card h4{font-size:12px;font-weight:600;color:var(--text)}
+.rec-card p{font-size:11px;color:var(--text3);margin-top:2px}
+.rec-card .rec-tag{display:inline-block;background:var(--verde-light);color:var(--verde-deep);font-size:10px;padding:1px 7px;border-radius:99px;margin-top:4px;border:1px solid var(--verde-border)}
+
+/* ─── EVALUACIÓN ─── */
+.eval-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.eval-card{border:1px solid var(--border);border-radius:var(--radius);padding:.9rem}
+.eval-card.interna{background:#F0FBF7;border-color:var(--verde-border)}
+.eval-card.auto{background:#EEEDFE22;border-color:var(--morado)}
+.eval-card.co{background:#E6F1FB44;border-color:var(--azul)}
+.eval-card.externa{background:var(--amarillo-light);border-color:var(--amarillo)}
+.eval-tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 9px;border-radius:99px;margin-bottom:8px;letter-spacing:.04em}
+.eval-card.interna .eval-tag{background:var(--verde);color:#fff}
+.eval-card.auto .eval-tag{background:var(--morado);color:#fff}
+.eval-card.co .eval-tag{background:var(--azul);color:#fff}
+.eval-card.externa .eval-tag{background:var(--amarillo);color:#fff}
+.eval-card h4{font-size:12px;font-weight:600;color:var(--text);margin-bottom:5px}
+.eval-card p{font-size:11.5px;color:var(--text2);line-height:1.55;margin-bottom:5px}
+.eval-inst{font-size:11px;color:var(--text3);font-style:italic}
+
+/* ─── SEMÁFORO ─── */
+.semaforo{display:flex;gap:6px;margin-top:.5rem;flex-wrap:wrap}
+.sem-item{padding:3px 10px;border-radius:99px;font-size:11px;font-weight:500}
+.sem-verde{background:#E1F5EE;color:var(--verde-deep);border:1px solid var(--verde-border)}
+.sem-ambar{background:#FAEEDA;color:#633806;border:1px solid var(--amarillo)}
+.sem-rojo{background:#FDECEA;color:#7B1D1D;border:1px solid #F08080}
+
+/* ─── BANNER ─── */
+.translate-banner{background:var(--amarillo-light);border:1px solid var(--amarillo);border-radius:var(--radius-sm);padding:.55rem 1rem;font-size:12px;color:#633806;margin-bottom:.9rem}
+
+/* ─── DETAIL ─── */
+.detail-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.9rem;margin-bottom:8px}
+.detail-box.green{background:var(--verde-light);border-color:var(--verde-border)}
+.detail-box.purple{background:var(--morado-light);border-color:var(--morado)}
+.dlabel{font-size:10.5px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.dlabel.green{color:var(--verde-dark)}
+.dlabel.purple{color:#5047C9}
+.dtext{font-size:13px;color:var(--text);line-height:1.55}
+.dtext.green{color:var(--verde-deep)}
+
+/* ─── RUBRICA ─── */
+.rubrica{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:.5rem}
+.rubrica th{background:var(--verde);color:#fff;padding:6px 8px;text-align:left;font-weight:500}
+.rubrica td{padding:6px 8px;border:1px solid var(--border);vertical-align:top;line-height:1.5}
+.rubrica tr:nth-child(even) td{background:var(--bg)}
+.nivel1{color:#9B2335}
+.nivel2{color:#7B5800}
+.nivel3{color:var(--verde-deep)}
+
+/* ─── ACTIVIDADES COMPLEMENTARIAS ─── */
+.act-comp-table{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:.75rem}
+.act-comp-table th{background:var(--verde);color:#fff;padding:7px 10px;text-align:left;font-weight:500}
+.act-comp-table td{padding:6px 10px;border:1px solid var(--border);vertical-align:top;line-height:1.5}
+.act-comp-table tr:nth-child(even) td{background:var(--bg)}
+.badge-comp{display:inline-block;font-size:10px;padding:2px 8px;border-radius:99px;font-weight:500}
+.bc-comp{background:var(--verde-light);color:var(--verde-deep);border:1px solid var(--verde-border)}
+.bc-ext{background:var(--azul-light);color:#042C53;border:1px solid var(--azul)}
+.bc-serv{background:var(--amarillo-light);color:#633806;border:1px solid var(--amarillo)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:600px){
+  .or-grid,.eval-grid{grid-template-columns:1fr}
+  .convi-card{grid-column:1}
+  .header{flex-wrap:wrap}
+  .header-right{margin-left:0;width:100%;flex-direction:row;justify-content:space-between;align-items:center;margin-top:8px}
+}
+</style>
+</head>
+<body>
+<div class="site">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">
+    <span class="logo-top">APP</span>
+    <span class="logo-bottom">CONVI+</span>
+  </div>
+  <div class="header-text">
+    <h1 id="school-name">CEIP Campos de Almería</h1>
+    <p id="school-sub">Centro de Educación Infantil y Primaria · Almería</p>
+  </div>
+  <div class="header-right">
+    <div class="lang-bar">
+      <button class="lang-btn active" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" onclick="setLang('fr')">FR</button>
+      <button class="lang-btn" onclick="setLang('da')">دارجة</button>
+    </div>
+    <span class="lang-label">Idioma / Langue / اللغة</span>
+  </div>
+</div>
+
+<!-- BANNER -->
+<div id="translate-banner" class="translate-banner hidden"><span id="banner-text"></span></div>
+
+<!-- NAV -->
+<div class="nav">
+  <button onclick="showPage('centro')" data-es="Nuestro centro" data-fr="Notre école" data-da="مدرستنا">Nuestro centro</button>
+  <button onclick="showPage('ensenanzas')" data-es="Enseñanzas y etapas" data-fr="Enseignements et étapes" data-da="التعليم والمراحل">Enseñanzas y etapas</button>
+  <button onclick="showPage('organizacion')" data-es="Aspectos organizativos" data-fr="Organisation scolaire" data-da="التنظيم المدرسي">Aspectos organizativos</button>
+  <button onclick="showPage('orientacion')" class="active" data-es="Orientación educativa" data-fr="Orientation éducative" data-da="التوجيه التربوي">Orientación educativa</button>
+  <button onclick="showPage('eoe')" data-es="Características EOE" data-fr="Caractéristiques EOE" data-da="خصائص EOE">Características EOE</button>
+  <button onclick="showPage('rubrica')" data-es="Rúbrica orientadora" data-fr="Rubrique d'évaluation" data-da="مؤشر التقييم">Rúbrica orientadora</button>
+  <button onclick="showPage('registros')" style="background:var(--morado);color:#fff;border-color:var(--morado)" data-es="🔐 Mis registros" data-fr="🔐 Mes registres" data-da="🔐 سجلاتي">🔐 Mis registros</button>
+</div>
+
+<!-- PANEL -->
+<div class="panel">
+  <div id="page-centro" class="hidden">
+    <p class="section-title">🏫 Características del Centro · CEIP Campos de Almería</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:1rem">
+      <div style="background:var(--verde-light);border:1px solid var(--verde-border);border-radius:var(--radius);padding:.9rem">
+        <div style="font-size:10.5px;font-weight:600;color:var(--verde-dark);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Datos identificativos</div>
+        <p style="font-size:12.5px;color:var(--text);line-height:1.7"><strong>Centro:</strong> CEIP Campos de Almería<br><strong>Titularidad:</strong> Pública (Junta de Andalucía)<br><strong>Etapas:</strong> Educación Infantil y Primaria<br><strong>Ubicación:</strong> Parte oriental de la comarca Metropolitana de Almería<br><strong>Entorno:</strong> Zona rural-semiurbana, actividad agrícola predominante<br><strong>Nivel socioeconómico:</strong> Medio-bajo</p>
+      </div>
+      <div style="background:var(--azul-light);border:1px solid var(--azul);border-radius:var(--radius);padding:.9rem">
+        <div style="font-size:10.5px;font-weight:600;color:#042C53;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Contexto socioeducativo</div>
+        <p style="font-size:12.5px;color:var(--text);line-height:1.7">El entorno se caracteriza por una dispersión geográfica notable, con núcleos urbanos y cortijadas diseminadas. La agricultura como actividad económica principal condiciona la motivación y expectativas académicas del alumnado. Alta diversidad cultural con presencia de familias de origen marroquí.</p>
+      </div>
+    </div>
+    <div style="background:var(--amarillo-light);border:1px solid var(--amarillo);border-radius:var(--radius);padding:.9rem;margin-bottom:.9rem">
+      <div style="font-size:10.5px;font-weight:600;color:#633806;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">📋 Documentos institucionales vigentes</div>
+      <p style="font-size:12.5px;color:var(--text);line-height:1.7">Plan de Centro (PE · POAT · Plan de Convivencia) · Decreto 328/2010 · LOMLOE · Decreto 101/2023 (Infantil) · Decreto 102/2023 (Primaria) · Orden 20 de febrero de 2026 (funciones EOE)</p>
+    </div>
+    <div style="background:var(--morado-light);border:1px solid var(--morado);border-radius:var(--radius);padding:.9rem">
+      <div style="font-size:10.5px;font-weight:600;color:#26215C;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">🌐 Ecosistema digital CONVI+</div>
+      <p style="font-size:12.5px;color:var(--text);line-height:1.7">El centro integra la App CONVI+ como herramienta vertebradora de la comunicación con familias en los 5 ámbitos de intervención. Permite triangulación tutor/a · orientadora · familia con recursos accesibles en árabe dariya, francés y español para atender a la diversidad lingüística de la comunidad.</p>
+    </div>
+  </div>
+
+  <div id="page-ensenanzas" class="hidden"><div class="info-panel">Etapas educativas: Infantil y Primaria. Objetivos y metodología.</div></div>
+  <div id="page-organizacion" class="hidden"><div class="info-panel">Horarios, calendario escolar, currículo y programas especiales.</div></div>
+
+  <!-- ─── PAGE EOE ─── -->
+  <div id="page-eoe" class="hidden">
+    <p class="section-title">🧭 Características del Equipo de Orientación Educativa (EOE)</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:.9rem">
+      <div style="background:var(--verde-light);border:1px solid var(--verde-border);border-radius:var(--radius);padding:.9rem">
+        <div style="font-size:10.5px;font-weight:600;color:var(--verde-dark);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Zona de actuación</div>
+        <p style="font-size:12.5px;color:var(--text);line-height:1.7">Extenso territorio compuesto por dos municipios al este de Andalucía. Notable dispersión geográfica: desde núcleos urbanos hasta cortijadas diseminadas. Vías de acceso diversas (autovías y carreteras rurales).</p>
+      </div>
+      <div style="background:var(--azul-light);border:1px solid var(--azul);border-radius:var(--radius);padding:.9rem">
+        <div style="font-size:10.5px;font-weight:600;color:#042C53;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Composición del equipo</div>
+        <p style="font-size:12.5px;color:var(--text);line-height:1.7"><strong>5 orientadores/as</strong> funcionando bajo los principios de interdisciplinariedad y coordinación efectiva (Decreto 213/1995 · Orden 23 julio 2003). Funciones generales y especializadas por áreas.</p>
+      </div>
+    </div>
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem;margin-bottom:.9rem">
+      <div style="font-size:10.5px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">📍 Sede y recursos</div>
+      <p style="font-size:12.5px;color:var(--text);line-height:1.7">Ubicada en la parte oriental de la comarca Metropolitana de Almería, en un antiguo colegio cedido por el Ayuntamiento. Dos dependencias con funciones de centro de recursos: instrumentos de evaluación, ordenadores de sobremesa y portátiles, bibliografía especializada y materiales de apoyo. Subzona del CEP para formación permanente.</p>
+    </div>
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem;margin-bottom:.9rem">
+      <div style="font-size:10.5px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">📌 Actuaciones por ámbitos · Orden 20 febrero 2026</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="border-left:3px solid var(--verde);padding-left:10px"><div style="font-size:11px;font-weight:700;color:var(--verde-dark);margin-bottom:3px">ACCIÓN TUTORIAL</div><p style="font-size:12px;color:var(--text);line-height:1.6">1. Programa de asesoramiento en inteligencia emocional · 2. Programa de asesoramiento en mindfulness en Educación Primaria y el último curso de Educación Infantil.</p></div>
+        <div style="border-left:3px solid var(--azul);padding-left:10px"><div style="font-size:11px;font-weight:700;color:#042C53;margin-bottom:3px">ORIENTACIÓN ACADÉMICA Y PROFESIONAL</div><p style="font-size:12px;color:var(--text);line-height:1.6">3. Programa de tránsito de infantil a primaria · 4. Programa de asesoramiento para el desarrollo del autoconocimiento en 6.º de Educación Primaria.</p></div>
+        <div style="border-left:3px solid var(--amarillo);padding-left:10px"><div style="font-size:11px;font-weight:700;color:#633806;margin-bottom:3px">ATENCIÓN A LA DIVERSIDAD</div><p style="font-size:12px;color:var(--text);line-height:1.6">5. Programa de asesoramiento para intervenir con alumnado NEE asociadas a trastornos graves de conducta · 6. Programa de mejora de la atención a través de la neuroeducación en 5 años.</p></div>
+        <div style="border-left:3px solid #E24B4A;padding-left:10px"><div style="font-size:11px;font-weight:700;color:#7B1D1D;margin-bottom:3px">CONVIVENCIA</div><p style="font-size:12px;color:var(--text);line-height:1.6">7. Programa de promoción de un clima positivo de convivencia en el recreo de primaria como estrategia inclusiva · 8. Programa de prevención del acoso escolar y ciberacoso en Educación Primaria · 9. Programa de intervención en un caso de conducta autolesiva en el centro.</p></div>
+        <div style="border-left:3px solid var(--morado);padding-left:10px"><div style="font-size:11px;font-weight:700;color:#26215C;margin-bottom:3px">APOYO AL PROCESO ENSEÑANZA-APRENDIZAJE</div><p style="font-size:12px;color:var(--text);line-height:1.6">10. Programa para la mejora de la comprensión lectora en 3.º de Educación Primaria · 11. Programa de asesoramiento sobre la promoción de la autoevaluación en el primer ciclo de Educación Primaria · 12. Programa de asesoramiento para introducir la metodología DUA en el currículo de Educación Primaria.</p></div>
+      </div>
+    </div>
+    <div style="background:var(--morado-light);border:1px solid var(--morado);border-radius:var(--radius);padding:.9rem">
+      <div style="font-size:10.5px;font-weight:600;color:#26215C;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">🔗 Coordinación externa</div>
+      <p style="font-size:12.5px;color:var(--text);line-height:1.7">Inspección Educativa · ETPOEP · Servicios Sociales · Andalucía Emprende · USMIJ · CEP (subzona de formación). Garantiza la unidad de criterios en actuaciones de zona.</p>
+    </div>
+  </div>
+
+  <!-- ─── PAGE RÚBRICA ─── -->
+  <div id="page-rubrica" class="hidden">
+    <p class="section-title">📊 Rúbrica de autoevaluación de la función orientadora · Tabla 11</p>
+    <p style="font-size:12px;color:var(--text3);margin-bottom:.9rem">Esta rúbrica no solo valora la gestión técnica del programa (desde la Inteligencia Emocional hasta el DUA) sino su dinámica al CEP. Permite detectar si los problemas en una actuación (ej. baja participación en el "Museo Viviente") se deben a un fallo de planificación o de asesoramiento previo. Los datos provienen de la triangulación de datos: cuestionarios de satisfacción de los tutores y los registros de la <em>App Convi+</em>. El nivel "consolidado" demuestra que tu función no es solo técnica (hacer informes), sino impulsora de mejora y de la calidad educativa del centro.</p>
+    <div style="overflow-x:auto">
+    <table class="rubrica">
+      <thead>
+        <tr>
+          <th style="min-width:130px">DIMENSIÓN</th>
+          <th style="background:#9B2335;min-width:160px">NIVEL 1: INICIADO</th>
+          <th style="background:#7B5800;min-width:160px">NIVEL 2: EN PROCESO</th>
+          <th style="background:var(--verde-dark);min-width:160px">NIVEL 3: CONSOLIDADO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Planificación y Ajuste al Centro</strong><br><small style="color:var(--text3)">Todas las actuaciones (1–12)</small></td>
+          <td style="color:#7B1D1D;background:#FFF5F5">El programa es genérico y no conecta claramente las necesidades con las 12 actuaciones.</td>
+          <td style="color:#633806;background:#FFFBF0">Está temporalizado, pero algunas actuaciones (ej. baja participación en el "Museo Viviente") no se adaptan al ritmo real del aula.</td>
+          <td style="color:#085041;background:#F0FBF7">Actuaciones consensuadas con el ETCP y totalmente alineadas con la Memoria de autoevaluación del centro.</td>
+        </tr>
+        <tr>
+          <td><strong>Asesoramiento en Diversidad</strong><br><small style="color:var(--text3)">Act. 5, 6, 12</small></td>
+          <td style="color:#7B1D1D;background:#FFF5F5">Se limita a realizar evaluaciones psicopedagógicas tras la demanda; asesoramiento preventivo escaso.</td>
+          <td style="color:#633806;background:#FFFBF0">Asesora en programas específicos (TGC/Neuroeducación), pero la aplicación en el aula es inconsistente.</td>
+          <td style="color:#085041;background:#F0FBF7">Dinamiza con éxito medidas ordinarias (DUA) y específicas, optimizando los recursos PT/AL en el aula.</td>
+        </tr>
+        <tr>
+          <td><strong>Acción Tutorial y Clima</strong><br><small style="color:var(--text3)">Act. 1, 2, 7, 8, 9</small></td>
+          <td style="color:#7B1D1D;background:#FFF5F5">Las actuaciones de mindfulness y mediación se ven como actividades aisladas del currículo.</td>
+          <td style="color:#633806;background:#FFFBF0">Implementa programas de convivencia y educación emocional, logrando una participación media del profesorado.</td>
+          <td style="color:#085041;background:#F0FBF7">Logra un enfoque sistémico: convivencia integrada en el Plan de convivencia y el POAT.</td>
+        </tr>
+        <tr>
+          <td><strong>Apoyo al Proceso E-A</strong><br><small style="color:var(--text3)">Act. 10, 11, 12</small></td>
+          <td style="color:#7B1D1D;background:#FFF5F5">El asesoramiento es teórico y no ofrece materiales prácticos.</td>
+          <td style="color:#633806;background:#FFFBF0">Proporciona herramientas de autoevaluación y comprensión lectora, pero falta seguimiento en las programaciones.</td>
+          <td style="color:#085041;background:#F0FBF7">Transforma la práctica docente mediante el DUA y la metacognición, evidenciando mejoras en el rendimiento y la motivación.</td>
+        </tr>
+        <tr>
+          <td><strong>Coordinación y Tránsito</strong><br><small style="color:var(--text3)">Act. 3, 4</small></td>
+          <td style="color:#7B1D1D;background:#FFF5F5">Las reuniones de tránsito con el IES y CAIT son meramente burocráticas y de trasvase de papeles.</td>
+          <td style="color:#633806;background:#FFFBF0">Organiza programas de acogida y tránsito, aunque la implicación de las familias es limitada.</td>
+          <td style="color:#085041;background:#F0FBF7">Lidera un tránsito armónico y coordinado: familias seguras y alumnado NEAE con recursos desde el primer día.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:11px;color:var(--text3);margin-top:.7rem;font-style:italic">Nota: Los datos provienen de la triangulación de datos: cuestionarios de satisfacción de los tutores y los registros de la App Convi+.</p>
+  </div>
+
+  <!-- ─── PAGE REGISTROS (SOLO ORIENTADORA) ─── -->
+  <div id="page-registros" class="hidden">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem">
+      <div style="width:38px;height:38px;border-radius:50%;background:var(--morado);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px">🔐</div>
+      <div>
+        <p class="section-title" style="margin-bottom:0;border:none;padding:0">Panel de registros · Orientadora EOE</p>
+        <p style="font-size:11.5px;color:var(--text3)">Acceso exclusivo · Participación de familias en CONVI+ por ámbito y actuación</p>
+      </div>
+    </div>
+
+    <!-- Resumen global -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-bottom:1rem">
+      <div style="background:var(--verde-light);border:1px solid var(--verde-border);border-radius:var(--radius);padding:.75rem;text-align:center">
+        <div style="font-size:22px;font-weight:700;color:var(--verde-deep)">87%</div>
+        <div style="font-size:10.5px;color:var(--verde-dark);font-weight:600">Participación global</div>
+      </div>
+      <div style="background:var(--azul-light);border:1px solid var(--azul);border-radius:var(--radius);padding:.75rem;text-align:center">
+        <div style="font-size:22px;font-weight:700;color:#042C53">142</div>
+        <div style="font-size:10.5px;color:#042C53;font-weight:600">Accesos este mes</div>
+      </div>
+      <div style="background:var(--amarillo-light);border:1px solid var(--amarillo);border-radius:var(--radius);padding:.75rem;text-align:center">
+        <div style="font-size:22px;font-weight:700;color:#633806">38</div>
+        <div style="font-size:10.5px;color:#633806;font-weight:600">Mensajes recibidos</div>
+      </div>
+      <div style="background:var(--morado-light);border:1px solid var(--morado);border-radius:var(--radius);padding:.75rem;text-align:center">
+        <div style="font-size:22px;font-weight:700;color:#26215C">12</div>
+        <div style="font-size:10.5px;color:#26215C;font-weight:600">Actuaciones activas</div>
+      </div>
+    </div>
+
+    <!-- Registros por ámbito -->
+    <div style="display:flex;flex-direction:column;gap:.75rem">
+
+      <!-- Acción Tutorial -->
+      <div style="border:1px solid var(--border);border-radius:var(--radius);overflow:hidden">
+        <div style="background:var(--verde);color:#fff;padding:.55rem .9rem;font-size:12px;font-weight:600">📚 ACCIÓN TUTORIAL</div>
+        <div style="padding:.75rem;display:flex;flex-direction:column;gap:.5rem">
+          <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:var(--radius-sm);padding:.6rem .8rem">
+            <span style="min-width:22px;height:22px;border-radius:50%;background:var(--verde);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">1</span>
+            <div style="flex:1"><div style="font-size:12px;font-weight:500">Inteligencia emocional · "Las tres cosas buenas"</div><div style="font-size:11px;color:var(--text3)">Ecosistema digital · Rutina de bienestar nocturno</div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:var(--verde-deep)">92%</div><div style="width:70px;height:5px;background:#ddd;border-radius:3px;margin-top:3px"><div style="width:92%;height:100%;background:var(--verde);border-radius:3px"></div></div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:var(--radius-sm);padding:.6rem .8rem">
+            <span style="min-width:22px;height:22px;border-radius:50%;background:var(--verde);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">2</span>
+            <div style="flex:1"><div style="font-size:12px;font-weight:500">Mindfulness · Envío semanal de consejos + audioguía</div><div style="font-size:11px;color:var(--text3)">Ecosistema digital · Consejos para casa</div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:var(--verde-deep)">88%</div><div style="width:70px;height:5px;background:#ddd;border-radius:3px;margin-top:3px"><div style="width:88%;height:100%;background:var(--verde);border-radius:3px"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orientación Académica -->
+      <div style="border:1px solid var(--border);border-radius:var(--radius);overflow:hidden">
+        <div style="background:var(--azul);color:#fff;padding:.55rem .9rem;font-size:12px;font-weight:600">🎯 ORIENTACIÓN ACADÉMICA Y PROFESIONAL</div>
+        <div style="padding:.75rem;display:flex;flex-direction:column;gap:.5rem">
+          <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:var(--radius-sm);padding:.6rem .8rem">
+            <span style="min-width:22px;height:22px;border-radius:50%;background:var(--azul);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">3</span>
+            <div style="flex:1"><div style="font-size:12px;font-weight:500">Tránsito I-P · Sesiones informativas + CONVI+</div><div style="font-size:11px;color:var(--text3)">Características etapa · detección AACC · familias NEAE</div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:#042C53">79%</div><div style="width:70px;height:5px;background:#ddd;border-radius:3px;margin-top:3px"><div style="width:79%;height:100%;background:var(--azul);border-radius:3px"></div></div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:var(--radius-sm);padding:.6rem .8rem">
+            <span style="min-width:22px;height:22px;border-radius:50%;background:var(--azul);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">4</span>
+            <div style="flex:1"><div style="font-size:12px;font-weight:500">Autoconocimiento · Vídeos y juegos interactivos</div><div style="font-size:11px;color:var(--text3)">Recursos autoconocimiento en CONVI+</div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:#042C53">83%</div><div style="width:70px;height:5px;background:#ddd;border-radius:3px;margin-top:3px"><div style="width:83%;height:100%;background:var(--azul);border-radius:3px"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Atención a la Diversidad -->
+      <div style="border:1px solid var(--border);border-radius:var(--radius);overflow:hidden">
+        <div style="background:var(--amarillo);color:#fff;padding:.55rem .9rem;font-size:12px;font-weight:600">🧩 ATENCIÓN A LA DIVERSIDAD</div>
+        <div style="padding:.75rem;display:flex;flex-direction:column;gap:.5rem">
+          <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:var(--radius-sm);padding:.6rem .8rem">
+            <span style="min-width:22px;height:22px;border-radius:50%;background:var(--amarillo);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">5</span>
+            <div style="flex:1"><div style="font-size:12px;font-weight:500">TGC · Agenda positiva + muro cinéfilo + clubes</div><div style="font-size:11px;color:var(--text3)">Psicoeducación y recursos comunitarios en CONVI+</div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:#633806">74%</div><div style="width:70px;height:5px;background:#ddd;border-radius:3px;margin-top:3px"><div style="width:74%;height:100%;background:var(--amarillo);border-radius:3px"></div></div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:var(--radius-sm);padding:.6rem .8rem">
+            <span style="min-width:22px;height:22px;border-radius:50%;background:var(--amarillo);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">6</span>
+            <div style="flex:1"><div style="font-size:12px;font-weight:500">Neuroeducación · Agenda positiva + proyecto HERVAT</div><div style="font-size:11px;color:var(--text3)">Recursos oficiales HERVAT vinculados en CONVI+</div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:#633806">81%</div><div style="width:70px;height:5px;background:#ddd;border-radius:3px;margin-top:3px"><div style="width:81%;height:100%;background:var(--amarillo);border-radius:3px"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Convivencia -->
+      <div style="border:1px solid var(--border);border-radius:var(--radius);overflow:hidden">
+        <div style="background:#C0392B;color:#fff;padding:.55rem .9rem;font-size:12px;font-weight:600">🛡️ CONVIVENCIA</div>
+        <div style="padding:.75rem;display:flex;flex-direction:column;gap:.5rem">
+          <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:var(--radius-sm);padding:.6rem .8rem">
+            <span style="min-width:22px;height:22px;border-radius:50%;background:#C0392B;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">7</span>
+            <div style="flex:1"><div style="font-size:12px;font-weight:500">Clima recreo · Agenda positiva + hábitos saludables</div><div style="font-size:11px;color:var(--text3)">CONVI+: recursos de convivencia positiva</div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:#7B1D1D">90%</div><div style="width:70px;height:5px;background:#ddd;border-radius:3px;margin-top:3px"><div style="width:90%;height:100%;background:#C0392B;border-radius:3px"></div></div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:var(--radius-sm);padding:.6rem .8rem">
+            <span style="min-width:22px;height:22px;border-radius:50%;background:#C0392B;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">8</span>
+            <div style="flex:1"><div style="font-size:12px;font-weight:500">Acoso/ciberacoso · Videojuegos educativos + portales</div><div style="font-size:11px;color:var(--text3)">Ciberconvivencia y seguridad en la red en CONVI+</div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:#7B1D1D">86%</div><div style="width:70px;height:5px;background:#ddd;border-radius:3px;margin-top:3px"><div style="width:86%;height:100%;background:#C0392B;border-radius:3px"></div></div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:var(--radius-sm);padding:.6rem .8rem">
+            <span style="min-width:22px;height:22px;border-radius:50%;background:#C0392B;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">9</span>
+            <div style="flex:1"><div style="font-size:12px;font-weight:500">Conducta autolesiva · Píldoras + infografías de alerta</div><div style="font-size:11px;color:var(--text3)">Alfabetización señales de alerta en CONVI+</div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:#7B1D1D">95%</div><div style="width:70px;height:5px;background:#ddd;border-radius:3px;margin-top:3px"><div style="width:95%;height:100%;background:#C0392B;border-radius:3px"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Apoyo E-A -->
+      <div style="border:1px solid var(--border);border-radius:var(--radius);overflow:hidden">
+        <div style="background:var(--morado);color:#fff;padding:.55rem .9rem;font-size:12px;font-weight:600">📖 APOYO AL PROCESO ENSEÑANZA-APRENDIZAJE</div>
+        <div style="padding:.75rem;display:flex;flex-direction:column;gap:.5rem">
+          <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:var(--radius-sm);padding:.6rem .8rem">
+            <span style="min-width:22px;height:22px;border-radius:50%;background:var(--morado);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">10</span>
+            <div style="flex:1"><div style="font-size:12px;font-weight:500">Comprensión lectora · Pautas estimulación lingüística</div><div style="font-size:11px;color:var(--text3)">Vídeo, audio e interactivos en CONVI+</div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:#26215C">84%</div><div style="width:70px;height:5px;background:#ddd;border-radius:3px;margin-top:3px"><div style="width:84%;height:100%;background:var(--morado);border-radius:3px"></div></div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:var(--radius-sm);padding:.6rem .8rem">
+            <span style="min-width:22px;height:22px;border-radius:50%;background:var(--morado);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">11</span>
+            <div style="flex:1"><div style="font-size:12px;font-weight:500">Autoevaluación · Repositorio digital para familias</div><div style="font-size:11px;color:var(--text3)">Recursos para acompañar el aprendizaje en CONVI+</div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:#26215C">78%</div><div style="width:70px;height:5px;background:#ddd;border-radius:3px;margin-top:3px"><div style="width:78%;height:100%;background:var(--morado);border-radius:3px"></div></div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:var(--radius-sm);padding:.6rem .8rem">
+            <span style="min-width:22px;height:22px;border-radius:50%;background:var(--morado);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">12</span>
+            <div style="flex:1"><div style="font-size:12px;font-weight:500">DUA · Comunicación accesible + aprendizaje dialógico</div><div style="font-size:11px;color:var(--text3)">Infografías TIC y comunicación bidireccional en CONVI+</div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:700;color:#26215C">82%</div><div style="width:70px;height:5px;background:#ddd;border-radius:3px;margin-top:3px"><div style="width:82%;height:100%;background:var(--morado);border-radius:3px"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /registros -->
+  </div>
+
+  <div id="page-orientacion">
+
+    <!-- HOME ORIENTACIÓN -->
+    <div id="view-orientacion-home">
+      <p class="section-title" id="txt-or-titulo">Orientación educativa · EOE</p>
+      <div class="or-grid">
+
+        <div class="convi-card" onclick="showAgenda()">
+          <div class="convi-inner">
+            <div class="convi-logo"><span class="lt">APP</span><span class="lb">CONVI+</span></div>
+            <div>
+              <h2 id="txt-convi-title">APP CONVI+</h2>
+              <p id="txt-convi-sub">Agenda positiva · Triangulación Tutor/a · Orientadora · Familia</p>
+              <span class="badge" id="txt-convi-badge">Acceder ahora</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="or-card"><div class="icon">👤</div><h3 id="txt-equipo">Equipo de orientación</h3><p id="txt-equipo-sub">Conoce al EOE del centro y sus funciones</p></div>
+        <div class="or-card"><div class="icon">📅</div><h3 id="txt-cita">Cita con orientación</h3><p id="txt-cita-sub">Solicita una cita para familias o profesorado</p></div>
+        <div class="or-card"><div class="icon">📄</div><h3 id="txt-docs">Documentos y recursos</h3><p id="txt-docs-sub">Guías, protocolos y materiales del EOE</p></div>
+        <div class="or-card"><div class="icon">📞</div><h3 id="txt-contacto">Contacto</h3><p id="txt-contacto-sub">Canal directo con el equipo de orientación</p></div>
+
+        <div style="grid-column:1/-1;margin-top:.5rem">
+          <p class="section-title" id="txt-act-titulo">Las 12 actuaciones del plan de intervención</p>
+          <div class="act-list" id="actuaciones-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONVI+ AGENDA -->
+    <div id="view-agenda" class="hidden agenda-view">
+      <button class="back-btn" onclick="backTo('orientacion-home')" id="txt-back1">← Volver a Orientación</button>
+      <div class="agenda-header">
+        <div class="agenda-logo"><span class="alt">APP</span><span class="alb">CONVI+</span></div>
+        <div>
+          <h2 style="font-family:'DM Serif Display',serif;font-size:17px;color:var(--text)">APP CONVI+</h2>
+          <p style="font-size:12px;color:var(--text3)" id="txt-agenda-sub">Agenda positiva · Triangulación tutor/a · orientadora · familia</p>
+        </div>
+      </div>
+      <div class="tabs">
+        <button class="tab active" onclick="showTab('mensajes')" id="tab-btn-mensajes">Mensajes</button>
+        <button class="tab" onclick="showTab('logros')" id="tab-btn-logros">Logros <span class="notif"></span></button>
+        <button class="tab" onclick="showTab('recursos')" id="tab-btn-recursos">Recursos</button>
+        <button class="tab" onclick="showTab('evaluacion')" id="tab-btn-evaluacion">Evaluación</button>
+        <button class="tab" onclick="showTab('actividades')" id="tab-btn-actividades">Actividades</button>
+        <button class="tab" onclick="showTab('actuaciones-tab')" id="tab-btn-actuaciones">Actuaciones</button>
+      </div>
+
+      <!-- TAB MENSAJES -->
+      <div id="tab-mensajes">
+        <div class="msg-form">
+          <label id="txt-label-dest">Enviar mensaje a:</label>
+          <select id="destinatario">
+            <option value="">— Seleccionar destinatario —</option>
+            <option>Familia de Lucía M.</option>
+            <option>Tutor/a de 3.º A</option>
+            <option>Orientadora EOE</option>
+          </select>
+          <label id="txt-label-act">Actuación relacionada:</label>
+          <select id="act-select">
+            <option value="">— Seleccionar actuación —</option>
+            <option>1. Inteligencia emocional (Infantil)</option>
+            <option>2. Mindfulness (Primaria e Infantil)</option>
+            <option>3. Tránsito Infantil-Primaria</option>
+            <option>4. Autoconocimiento 6.º Primaria</option>
+            <option>5. Trastornos graves de conducta</option>
+            <option>6. Neuroeducación 5 años</option>
+            <option>7. Prevención acoso escolar</option>
+            <option>8. Clima positivo recreo</option>
+            <option>9. Conducta autolesiva</option>
+            <option>10. Autoevaluación 1.er ciclo</option>
+            <option>11. Comprensión lectora 3.º</option>
+            <option>12. Metodología DUA</option>
+          </select>
+          <label id="txt-label-msg">Mensaje en positivo:</label>
+          <textarea id="msg-text" rows="3" placeholder="Escribe aquí un mensaje constructivo para la familia o el tutor/a..."></textarea>
+          <div class="toast" id="toast">✓ Mensaje enviado correctamente a través de CONVI+</div>
+          <button class="btn" onclick="enviarMensaje()" id="txt-btn-enviar">Enviar mensaje</button>
+        </div>
+        <p style="font-size:11.5px;color:var(--text3);margin-bottom:7px" id="txt-conv-rec">Conversación reciente</p>
+        <div class="msg-list">
+          <div class="msg tutor"><div class="msg-meta">Tutor/a 3.º A · Hace 2 días · Inteligencia emocional</div>Esta semana Lucía ha mostrado mucha empatía con sus compañeros durante la asamblea. Gran progreso emocional.</div>
+          <div class="msg orientadora"><div class="msg-meta">Orientadora EOE · Ayer · Mindfulness — Actuación 2</div>Hemos iniciado el programa "Atentos como una rana". El alumnado responde muy bien a las rutinas de respiración.</div>
+          <div class="msg familia"><div class="msg-meta">Familia de Lucía M. · Hoy · Inteligencia emocional</div>Muchas gracias por la información. En casa también notamos cambios muy positivos esta semana.</div>
+        </div>
+      </div>
+
+      <!-- TAB LOGROS -->
+      <div id="tab-logros" class="hidden">
+        <p style="font-size:12.5px;color:var(--text2);margin-bottom:.9rem">Registra un logro o hito positivo del alumno/a vinculado a las actuaciones del plan.</p>
+        <div class="msg-form">
+          <label>Alumno/a:</label><input type="text" placeholder="Nombre del alumno/a">
+          <label>Logro conseguido en positivo:</label><textarea rows="2" placeholder="Describe el avance o logro observado..."></textarea>
+          <label>Actuación vinculada:</label>
+          <select>
+            <option>— Seleccionar —</option>
+            <option>Inteligencia emocional</option>
+            <option>Mindfulness</option>
+            <option>Clima positivo recreo</option>
+            <option>Comprensión lectora</option>
+            <option>Autoevaluación</option>
+            <option>DUA</option>
+          </select>
+          <button class="btn">Registrar logro</button>
+        </div>
+        <p style="font-size:11.5px;color:var(--text3);margin-bottom:7px">Logros recientes — Semáforo de seguimiento</p>
+        <div class="semaforo" style="margin-bottom:10px">
+          <span class="sem-verde">● Conseguido</span>
+          <span class="sem-ambar">● En proceso</span>
+          <span class="sem-rojo">● Por iniciar</span>
+        </div>
+        <div class="msg-list">
+          <div class="msg tutor"><div class="msg-meta">Marcos D. · Clima positivo recreo · 07/04/2026 · <span style="color:var(--verde)">● Conseguido</span></div>Ha mediado espontáneamente en un conflicto entre compañeros. Actitud ejemplar de alumnado ayudante.</div>
+          <div class="msg tutor"><div class="msg-meta">Alba R. · Comprensión lectora (Lexi-Lumen) · 05/04/2026 · <span style="color:var(--verde)">● Conseguido</span></div>Ha mejorado su velocidad lectora en 12 palabras por minuto este trimestre. Lectómetro en verde.</div>
+          <div class="msg orientadora"><div class="msg-meta">Grupo 3.º A · DUA — Museo Viviente · 02/04/2026 · <span style="color:#7B5800">● En proceso</span></div>El alumnado trabaja en estaciones. Buen nivel de implicación, pendiente de evaluación final.</div>
+        </div>
+      </div>
+
+      <!-- TAB RECURSOS -->
+      <div id="tab-recursos" class="hidden">
+        <p style="font-size:12.5px;color:var(--text2);margin-bottom:.9rem">Materiales de sensibilización para familias y profesorado, organizados por actuación del plan.</p>
+        <div class="rec-grid">
+          <div class="rec-card"><div class="rec-icon">🧠</div><h4>Inteligencia emocional</h4><p>Programa 1, 2, 3 ¡Emoción! · GROP · Bisquerra</p><span class="rec-tag">Infantil 3-5 años</span></div>
+          <div class="rec-card"><div class="rec-icon">🌿</div><h4>Mindfulness</h4><p>"Atentos como una rana" · Eline Snel · Yolanda Calvo</p><span class="rec-tag">Infantil y Primaria</span></div>
+          <div class="rec-card"><div class="rec-icon">🔄</div><h4>Tránsito I-P</h4><p>Cuento "La ventana mágica" · Desayunos compartidos</p><span class="rec-tag">5 años · 1.º Primaria</span></div>
+          <div class="rec-card"><div class="rec-icon">🪞</div><h4>Autoconocimiento</h4><p>Explóra-T · MyWayPass · Técnica De Bono</p><span class="rec-tag">6.º Primaria</span></div>
+          <div class="rec-card"><div class="rec-icon">🤝</div><h4>Conducta (TGC)</h4><p>Kit autorregulación · Pasillos dinámicos · EmPeCemos</p><span class="rec-tag">Infantil y Primaria</span></div>
+          <div class="rec-card"><div class="rec-icon">🧩</div><h4>Neuroeducación</h4><p>Programa HERVAT · Caza del tesoro sensorial</p><span class="rec-tag">5 años</span></div>
+          <div class="rec-card"><div class="rec-icon">🛡️</div><h4>Prevención acoso</h4><p>SociEscuela · ConRed · SmartPrivial · Netiquétate</p><span class="rec-tag">Primaria</span></div>
+          <div class="rec-card"><div class="rec-icon">🌞</div><h4>Clima recreo</h4><p>MediAcción · Juegos cooperativos · Alumnado ayudante</p><span class="rec-tag">Primaria</span></div>
+          <div class="rec-card"><div class="rec-icon">💙</div><h4>Conducta autolesiva</h4><p>Escala Columbia · Nenúfar de los cuidados</p><span class="rec-tag">Protocolo centro</span></div>
+          <div class="rec-card"><div class="rec-icon">✅</div><h4>Autoevaluación</h4><p>Semáforo aprendizaje · Dianas · Pasaporte metacognitivo</p><span class="rec-tag">1.er ciclo Primaria</span></div>
+          <div class="rec-card"><div class="rec-icon">📖</div><h4>Comprensión lectora</h4><p>Lexi-Lumen · ACL-2/3 · Método Cornell · Lectómetro</p><span class="rec-tag">3.º Primaria</span></div>
+          <div class="rec-card"><div class="rec-icon">📚</div><h4>Metodología DUA</h4><p>Feria de los sentidos · Museo Viviente · Gamificación</p><span class="rec-tag">Primaria</span></div>
+        </div>
+      </div>
+
+      <!-- TAB EVALUACIÓN -->
+      <div id="tab-evaluacion" class="hidden">
+        <p style="font-size:12.5px;color:var(--text2);margin-bottom:.9rem">Evaluación del programa de intervención por agentes. Fases: Inicial · Continua · Final.</p>
+
+        <p style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:.6rem;font-family:'DM Serif Display',serif">9.1 Evaluación Inicial — Análisis del punto de partida</p>
+        <div class="eval-grid" style="margin-bottom:1rem">
+          <div class="eval-card interna">
+            <span class="eval-tag">Interna</span>
+            <h4>Centro / EOE</h4>
+            <p>Grado de adecuación de los documentos del centro (PE, POAT, Plan de Convivencia) con los objetivos de inclusión y DUA del plan.</p>
+            <span class="eval-inst">Análisis documental · Cuestionarios exploración · Memoria de Autoevaluación Séneca</span>
+          </div>
+          <div class="eval-card auto">
+            <span class="eval-tag">Autoevaluación</span>
+            <h4>Orientadora / Docentes</h4>
+            <p>Nivel de autoeficacia percibida respecto a la competencia digital y metodológica en DUA y metas del programa.</p>
+            <span class="eval-inst">Diario de reflexión · Escala PRE (Técnica Pre-test) · Díaz (2007)</span>
+          </div>
+          <div class="eval-card co">
+            <span class="eval-tag">Coevaluación</span>
+            <h4>Orientadora · Tutores · Equipo Directivo</h4>
+            <p>Sintonía y coordinación inicial para la puesta en marcha del Equipo de Tránsito y el uso de la App CONVI+.</p>
+            <span class="eval-inst">Diario de entrevistas · Actas ETCP · Técnica Delphi con expertos</span>
+          </div>
+          <div class="eval-card externa">
+            <span class="eval-tag">Externa</span>
+            <h4>Familias / Servicios</h4>
+            <p>Detección de indicios NEAE y ajuste de expectativas familiares ante el cambio de etapa o nueva escolarización.</p>
+            <span class="eval-inst">Acta reunión EOE-DO · Lista de cotejo prescriptiva · Censo NEAE Séneca</span>
+          </div>
+        </div>
+
+        <p style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:.6rem;font-family:'DM Serif Display',serif">9.2 Evaluación Continua — Seguimiento y optimización</p>
+        <div class="eval-grid" style="margin-bottom:1rem">
+          <div class="eval-card interna">
+            <span class="eval-tag">Interna</span>
+            <h4>Centro / EOE</h4>
+            <p>Grado de cumplimiento del Plan de Trabajo y participación del alumnado y familias en las actividades.</p>
+            <span class="eval-inst">Semáforo de evaluación · Análisis línea de evolución del programa</span>
+          </div>
+          <div class="eval-card auto">
+            <span class="eval-tag">Autoevaluación</span>
+            <h4>Orientadora</h4>
+            <p>Calidad y sistematicidad del asesoramiento y rapidez de respuesta ante nuevas demandas.</p>
+            <span class="eval-inst">Diario de actuaciones · Escalera de metacognición profesional</span>
+          </div>
+          <div class="eval-card co">
+            <span class="eval-tag">Coevaluación</span>
+            <h4>Trabajo en red</h4>
+            <p>Nivel de coordinación con Equipos de Ciclo y Equipo de Tránsito para el seguimiento de medidas NEAE.</p>
+            <span class="eval-inst">Cuadernos de equipo · Actas seguimiento trimestral · Entrevistas tutores</span>
+          </div>
+          <div class="eval-card externa">
+            <span class="eval-tag">Externa</span>
+            <h4>Familias / Servicios</h4>
+            <p>Grado de ajuste de expectativas familiares y calidad de la información recibida desde servicios externos.</p>
+            <span class="eval-inst">Registros App CONVI+ · iPasen · Informes agentes externos</span>
+          </div>
+        </div>
+
+        <p style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:.6rem;font-family:'DM Serif Display',serif">9.3 Evaluación Final — Consolidación y memoria</p>
+        <div class="eval-grid" style="margin-bottom:1rem">
+          <div class="eval-card interna">
+            <span class="eval-tag">Interna</span>
+            <h4>Centro / EOE</h4>
+            <p>Grado de cumplimiento de objetivos del Plan de Trabajo y ajuste a la normativa vigente.</p>
+            <span class="eval-inst">Memoria Final Autoevaluación (Séneca) · Rúbricas de logro institucional</span>
+          </div>
+          <div class="eval-card auto">
+            <span class="eval-tag">Autoevaluación</span>
+            <h4>Orientadora</h4>
+            <p>Nivel de eficacia y eficiencia del asesoramiento y capacidad de respuesta ante el volumen de demandas.</p>
+            <span class="eval-inst">Diario reflexión final · Memoria técnica · Escala POST</span>
+          </div>
+          <div class="eval-card co">
+            <span class="eval-tag">Coevaluación</span>
+            <h4>Trabajo en red</h4>
+            <p>Grado de satisfacción del profesorado y nivel de consolidación de estructuras (Equipo de Tránsito, DUA).</p>
+            <span class="eval-inst">Diana de logros · Termómetros de coordinación · Semáforo de satisfacción</span>
+          </div>
+          <div class="eval-card externa">
+            <span class="eval-tag">Externa</span>
+            <h4>Familias / Servicios</h4>
+            <p>Impacto del programa en el bienestar del alumnado y calidad del trasvase de información.</p>
+            <span class="eval-inst">Cuestionarios satisfacción (Post-test) · Informes Inspección · CAIT/Salud</span>
+          </div>
+        </div>
+
+        <p style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:.6rem;font-family:'DM Serif Display',serif">9.4 Rúbrica de autoevaluación de la función orientadora</p>
+        <div style="overflow-x:auto">
+        <table class="rubrica">
+          <thead>
+            <tr>
+              <th>Ámbito</th>
+              <th class="nivel1">Nivel 1: Iniciado</th>
+              <th class="nivel2" style="color:#fff">Nivel 2: En proceso</th>
+              <th class="nivel3" style="color:#fff">Nivel 3: Consolidado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Planificación</strong><br><small>Act. 1-12</small></td>
+              <td class="nivel1">Plan genérico, no conecta con las 12 actuaciones.</td>
+              <td class="nivel2">Temporalizado pero algunas actuaciones no se adaptan al ritmo real del aula.</td>
+              <td class="nivel3">Actuaciones consensuadas con ETCP y alineadas con la Memoria de autoevaluación.</td>
+            </tr>
+            <tr>
+              <td><strong>Asesoramiento diversidad</strong><br><small>Act. 5, 6, 12</small></td>
+              <td class="nivel1">Solo evalúaciones psicopedagógicas tras demanda.</td>
+              <td class="nivel2">Asesora en programas específicos (TGC/Neuroeducación) con aplicación inconsistente.</td>
+              <td class="nivel3">Dinamiza medidas ordinarias (DUA) y específicas optimizando recursos PT/AL en aula.</td>
+            </tr>
+            <tr>
+              <td><strong>Acción Tutorial y Clima</strong><br><small>Act. 1, 2, 7, 8, 9</small></td>
+              <td class="nivel1">Mindfulness y mediación como actividades aisladas.</td>
+              <td class="nivel2">Implementa programas con participación media del profesorado.</td>
+              <td class="nivel3">Enfoque sistémico: convivencia integrada en el Plan de Centro y el POAT.</td>
+            </tr>
+            <tr>
+              <td><strong>Apoyo al aprendizaje</strong><br><small>Act. 10, 11, 12</small></td>
+              <td class="nivel1">Asesoramiento teórico sin materiales prácticos.</td>
+              <td class="nivel2">Proporciona herramientas de autoevaluación y comprensión lectora, sin seguimiento.</td>
+              <td class="nivel3">Transforma la práctica docente con DUA y metacognición. Mejoras en motivación y rendimiento.</td>
+            </tr>
+            <tr>
+              <td><strong>Coordinación y Tránsito</strong><br><small>Act. 3, 4</small></td>
+              <td class="nivel1">Reuniones meramente burocráticas con el IES/CAIT.</td>
+              <td class="nivel2">Organiza acogida y tránsito con participación familiar limitada.</td>
+              <td class="nivel3">Tránsito armónico: familias seguras y alumnado NEAE con recursos desde el primer día.</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <!-- TAB ACTIVIDADES -->
+      <div id="tab-actividades" class="hidden">
+        <p style="font-size:12.5px;color:var(--text2);margin-bottom:.9rem">Actividades complementarias y extraescolares integradas en el plan de intervención del EOE.</p>
+        <p style="font-size:11.5px;color:var(--text3);margin-bottom:.6rem">Decreto 328/2010 Art. 7.1.f · Orden 14/07/1998 · Orden 17/04/2017</p>
+        <div style="overflow-x:auto">
+        <table class="act-comp-table">
+          <thead>
+            <tr>
+              <th>Actividad</th>
+              <th>Ámbito</th>
+              <th>Tipo</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Talleres de competencias emocionales</td><td>Acción Tutorial</td><td><span class="badge-comp bc-comp">Complementaria</span></td><td>Identificación, expresión y regulación de emociones básicas. Programa 1,2,3 ¡Emoción!</td></tr>
+            <tr><td>Prácticas de atención plena diaria</td><td>Acción Tutorial</td><td><span class="badge-comp bc-comp">Complementaria</span></td><td>Sesiones breves (5') al inicio o tras el recreo. Método "Atentos como una rana" (Eline Snel).</td></tr>
+            <tr><td>Acompañamiento en el cambio de etapa</td><td>Orientación académica</td><td><span class="badge-comp bc-comp">Complementaria</span></td><td>Visitas a aulas de 1.º, desayunos compartidos y cuento "La ventana mágica". Búsqueda del tesoro sensorial.</td></tr>
+            <tr><td>Orientación personal hacia la ESO</td><td>Orientación académica</td><td><span class="badge-comp bc-comp">Complementaria</span></td><td>Programa Explóra-T: Avatar digital, técnica De Bono, MyWayPass. 6.º Primaria.</td></tr>
+            <tr><td>Estimulación neuroeducativa HERVAT</td><td>Atención a la diversidad</td><td><span class="badge-comp bc-comp">Complementaria</span></td><td>Rutinas sensoriales (Hidratación, Equilibrio, Respiración, Visión, Audición, Tacto) antes de las clases. 5 años.</td></tr>
+            <tr><td>Apoyo individualizado para el autocontrol</td><td>Atención a la diversidad</td><td><span class="badge-comp bc-comp">Complementaria</span></td><td>Kits de autorregulación, pasillos dinámicos y tutorías de resiliencia para alumnado con TGC.</td></tr>
+            <tr><td>Simposio dinámico de talentos</td><td>Atención a la diversidad</td><td><span class="badge-comp bc-comp">Complementaria</span></td><td>Estaciones de talento basadas en Aulas Felices. Cariñograma y cofre de felicitaciones. Nivel universal.</td></tr>
+            <tr><td>Patios inclusivos y mediación</td><td>Convivencia</td><td><span class="badge-comp bc-comp">Complementaria</span></td><td>Programa MediAcción: juegos cooperativos dinamizados y alumnado ayudante en el recreo.</td></tr>
+            <tr><td>Prevención de acoso y ciberacoso</td><td>Convivencia</td><td><span class="badge-comp bc-comp">Complementaria</span></td><td>Club de valientes, SociEscuela, SmartPrivial, Netiquétate. Agente Tutor. Plan Director.</td></tr>
+            <tr><td>Mejora de la comprensión lectora</td><td>Apoyo aprendizaje</td><td><span class="badge-comp bc-comp">Complementaria</span></td><td>Lexi-Lumen: método Cornell, lectómetro, lectura compartida. ACL-2/3. 3.º Primaria.</td></tr>
+            <tr><td>Situaciones de aprendizaje inclusivas DUA</td><td>Apoyo aprendizaje</td><td><span class="badge-comp bc-comp">Complementaria</span></td><td>Feria de los sentidos, Pasapalabra del saber, Museo Viviente, estaciones de aprendizaje.</td></tr>
+            <tr><td>Autoevaluación del aprendizaje</td><td>Apoyo aprendizaje</td><td><span class="badge-comp bc-comp">Complementaria</span></td><td>Semáforo del aprendizaje, dianas de progreso y pasaportes metacognitivos. 1.er ciclo.</td></tr>
+            <tr><td>Jornadas de puertas abiertas</td><td>Orientación / Lectura</td><td><span class="badge-comp bc-comp">Complementaria</span></td><td>Feria Literaria (Lexi-Lumen) y visitas de familias al centro en horario lectivo. Visibilización de proyectos.</td></tr>
+            <tr><td>Escuela de familias</td><td>Apoyo familiar</td><td><span class="badge-comp bc-ext">Extraescolar</span></td><td>Talleres en tarde: disciplina positiva, ciberconvivencia y aprendizaje dialógico ("Alquimia del Crecimiento").</td></tr>
+            <tr><td>Canal digital CONVI+</td><td>Apoyo familiar</td><td><span class="badge-comp bc-ext">Extraescolar</span></td><td>Aplicación móvil para comunicación asíncrona, agenda positiva y recursos educativos para el hogar.</td></tr>
+            <tr><td>Comedor escolar</td><td>Servicios</td><td><span class="badge-comp bc-serv">Servicio complementario</span></td><td>Espacio de convivencia y normas. Orden 17/04/2017. Solicitudes del 1 al 10 de junio.</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <!-- TAB ACTUACIONES -->
+      <div id="tab-actuaciones-tab" class="hidden">
+        <p style="font-size:12.5px;color:var(--text2);margin-bottom:.9rem">Las 12 actuaciones del plan de intervención del EOE. Pulsa para ver el detalle.</p>
+        <div class="act-list" id="act-list-agenda"></div>
+      </div>
+    </div>
+
+    <!-- DETALLE ACTUACIÓN -->
+    <div id="view-actuacion-detail" class="hidden agenda-view">
+      <button class="back-btn" onclick="backTo('agenda')">← Volver a CONVI+</button>
+      <div id="detail-content"></div>
+    </div>
+
+  </div>
+</div><!-- /panel -->
+</div><!-- /site -->
+
+<script>
+const actuaciones=[
+  // ACCIÓN TUTORIAL
+  {num:1,icon:"🧠",titulo:"Inteligencia emocional",etapa:"1.º y 2.º Infantil (3-5 años)",ambito:"Acción Tutorial",
+   comp:"Todas las competencias, en especial: CPSAA, CC, CCEC, CCL",
+   obj:"OBJETIVO GENERAL: Fomentar el desarrollo de la competencia socioemocional desde edades tempranas, favoreciendo la identificación, expresión y regulación de las emociones. || OBJETIVO DE ETAPA (LOE-LOMLOE art. 13 · Decretos art. 5): Favorecer el desarrollo emocional y afectivo del alumnado, promoviendo la autonomía, la empatía, el respeto y la conciencia personal. Infantil: a), d) y e).",
+   familias:"Ecosistema digital. App CONVI+ con actividades de continuidad como las tres cosas buenas (rutina de bienestar nocturno).",
+   recursos:"Programa 1,2,3 Emocion! (SEAL) · Bisquerra GROP · EMOTI (Hurtado y Salas) · Alberto Soler (YouTube) · Elisa Molina (Disciplina Positiva)",
+   eval:"Cuestionarios de exploración emocional (Pre/Post) · Observación directa · Escala de Autoevaluación PRE",
+   trimestre:"1T: Talleres iniciales · 2T: Aplicación continua · 3T: Evaluación final y memoria"},
+  {num:2,icon:"🌿",titulo:"Mindfulness",etapa:"Primaria y último curso de Infantil",ambito:"Acción Tutorial",
+   comp:"Todas las competencias, en especial: CPSAA, CCEC, CCL",
+   obj:"OBJETIVO GENERAL: Promover la atención plena y la autorregulación del alumnado, mejorando la concentración, el bienestar emocional y la disposición para el aprendizaje. || OBJETIVO DE ETAPA (LOE-LOMLOE art. 13 · Decretos art. 5): Promover el desarrollo emocional, la autonomía, la aceptación personal y la valoración de la salud. Infantil: c) y d). Primaria: k) y m).",
+   familias:"Ecosistema digital. App CONVI+ con envío semanal de consejos para casa y audio guía.",
+   recursos:"Eline Snel La Rana · Yolanda Calvo (YouTube) · mamaatodogas.com · educayaprende.com · Método AMT-PT",
+   eval:"Diario de actuaciones · Cuestionario de bienestar emocional Pre/Post · Observación del clima de aula",
+   trimestre:"1T: Formación UAL al profesorado + inicio rutinas · 2T: Sesiones semanales · 3T: Portafolio y cierre"},
+  // ORIENTACIÓN ACADÉMICA Y PROFESIONAL
+  {num:3,icon:"🔄",titulo:"Tránsito Infantil-Primaria",etapa:"Último curso Infantil y 1.º Primaria",ambito:"Orientación Académica y Profesional",
+   comp:"Todas las competencias, en especial: CPSAA, CC, CCL",
+   obj:"OBJETIVO GENERAL: Facilitar la continuidad educativa entre Educación Infantil y Educación Primaria, favoreciendo un tránsito positivo y coordinado entre etapas. || OBJETIVO DE ETAPA (LOE-LOMLOE art. 13 · Decretos art. 5): Favorecer la adaptación al entorno escolar mediante la exploración del contexto, el respeto a la diversidad cultural y la autonomía. Infantil: b), c), f) y g). Primaria: b) y c).",
+   familias:"Sesiones informativas (charla) sobre características de la etapa, evolución y detección de altas capacidades. Sesiones individualizadas con familias NEAE. Aplicación CONVI+.",
+   recursos:"Cuento La ventana magica · Mapa del tesoro · Caja de los tesoros · Acta de reunión EOE-DO · Séneca",
+   eval:"Acta de reunión de tránsito EOE-DO · Lista de cotejo prescriptiva · Cuestionario de adaptación (Post)",
+   trimestre:"1T: Planificación y reunión EOE-DO · 2T: Sensibilización y visitas · 3T: Ejecución, trasvase de información"},
+  {num:4,icon:"🪞",titulo:"Autoconocimiento",etapa:"6.º de Primaria",ambito:"Orientación Académica y Profesional",
+   comp:"Todas las competencias, en especial: CPSAA, CCEC, CD, CC",
+   obj:"OBJETIVO GENERAL: Favorecer el autoconocimiento del alumnado y el desarrollo de su proyecto personal, apoyando procesos de reflexión y toma de decisiones. || OBJETIVO DE ETAPA (LOE-LOMLOE art. 13 · Decretos art. 5): Fomentar la iniciativa personal, el pensamiento crítico y el uso básico de la competencia digital, junto al desarrollo afectivo y relacional del alumnado. Primaria: b), h), i) y m).",
+   familias:"Ecosistema digital. App CONVI+ con enlaces a videos y juegos interactivos para autoconocimiento.",
+   recursos:"Programa Explóra-T · MyWayPass · Técnica De Bono (6 sombreros) · Mentimeter · Kahoot · Genially",
+   eval:"Cuestionario de autoeficacia (Pre/Post) · Producto final: Avatar digital o mapa de talentos",
+   trimestre:"1T: Cuestionarios iniciales · 2T: Talleres por áreas (Ciencias Sociales) · 3T: Pasaporte final a la ESO"},
+  // ATENCIÓN A LA DIVERSIDAD
+  {num:5,icon:"🤝",titulo:"Trastornos graves de conducta",etapa:"Infantil y Primaria",ambito:"Atención a la Diversidad",
+   comp:"Todas las competencias, en especial: CPSAA, CCL",
+   obj:"OBJETIVO GENERAL: Asesorar al profesorado en la intervención con alumnado con trastornos graves de conducta, promoviendo estrategias educativas adecuadas y coordinadas. || OBJETIVO DE ETAPA (LOE-LOMLOE art. 13 · Decretos art. 5): Desarrollar la empatía, la autonomía y las capacidades afectivas del discente, favoreciendo la prevención de violencia y prejuicios. Primaria: a), c) y m).",
+   familias:"Ecosistema digital. App CONVI+: agenda positiva; muro psicoeducativo cinéfilo; recursos en la comunidad como clubes.",
+   recursos:"Kit de autorregulación · Pasillos dinámicos · Aula de Convivencia · Aula de Respiro · EmPeCemos · Economía de fichas digital (App CONVI+)",
+   eval:"Registro de crisis conductuales (Pre/Post) · Seguimiento Anexo XI en Séneca · Entrevistas tutores trimestral",
+   trimestre:"1T: Protocolo de crisis y acuerdos EOC · 2T: Seguimiento Séneca · 3T: Memoria de impacto"},
+  {num:6,icon:"🧩",titulo:"Neuroeducación",etapa:"5 años (Infantil)",ambito:"Atención a la Diversidad",
+   comp:"Todas las competencias, en especial: CPSAA, STEM, CCL",
+   obj:"OBJETIVO GENERAL: Asesorar sobre los procesos cognitivos básicos mediante una metodología con base científica que favorezca la madurez neuropsicológica necesaria para el éxito en el futuro tránsito a la Educación Primaria. || OBJETIVO DE ETAPA (LOE-LOMLOE art. 13 · Decretos art. 5): Favorecer el desarrollo del esquema corporal, el movimiento, el ritmo y la autonomía, integrando hábitos saludables y habilidades de atención y aprendizaje. Infantil: a), c), g) y h).",
+   familias:"Ecosistema digital. App CONVI+ con agenda positiva y enlace a proyecto oficial HERVAT con recursos.",
+   recursos:"Programa HERVAT (Hidratación, Equilibrio, Respiración, Visión, Audición, Tacto) · Caza del tesoro sensorial · Atrapa el pez · Guillén · Ortiz Alonso",
+   eval:"Pruebas de atención pre/post · Observación directa · Análisis de resultados académicos 1.º Primaria",
+   trimestre:"1T: Línea base y formación docente · 2T: Implementación HERVAT diaria · 3T: Análisis de resultados"},
+  // CONVIVENCIA
+  {num:7,icon:"🌞",titulo:"Clima positivo en el recreo",etapa:"Educación Primaria",ambito:"Convivencia",
+   comp:"Todas las competencias, en especial: CPSAA, CCL, CCEC, CC",
+   obj:"OBJETIVO GENERAL: Promover un ambiente escolar pacífico, inclusivo y respetuoso entre el alumnado. || OBJETIVO DE ETAPA (LOE-LOMLOE art. 13 · Decretos art. 5): Conocer valores de convivencia a través de la empatía y adquirir habilidades para la prevención de la violencia y resolución pacífica de conflictos. Primaria: a), c), d), i) y n).",
+   familias:"Ecosistema digital. App CONVI+: agenda positiva y hábitos de vida saludables.",
+   recursos:"Programa MediAcción · Alumnado ayudante · Juegos cooperativos (Rayuela africana, chapas) · Simposio de talentos · Sombreros De Bono",
+   eval:"Observación directa en recreos · Análisis DAFO al final de trimestre · Registro incidencias Pre/Post",
+   trimestre:"1T: Mapeo y formación alumnado ayudante · 2T: Mediación activa en patio · 3T: Valoración DAFO final"},
+  {num:8,icon:"🛡️",titulo:"Prevención del acoso escolar",etapa:"Educación Primaria",ambito:"Convivencia",
+   comp:"Todas las competencias, en especial: CPSAA, CCL, CD, CC",
+   obj:"OBJETIVO GENERAL: Prevenir situaciones de acoso escolar y ciberacoso, promoviendo la sensibilización y el respeto entre iguales. || OBJETIVO DE ETAPA (LOE-LOMLOE art. 13 · Decretos art. 5): Prevenir la violencia y fomentar el espíritu crítico digital y el desarrollo afectivo. Primaria: a), c), i) y m).",
+   familias:"Ecosistema digital. App CONVI+. Enlace a juegos interactivos; acceso a videojuegos educativos y portales de ciberconvivencia para aprender jugando sobre seguridad y respeto en la red.",
+   recursos:"SociEscuela · ConRed (5.º y 6.º) · SmartPrivial · Netiquétate · Plan Director · Agente Tutor (Policía Local) · PantallasAmigas · SecuKid",
+   eval:"SociEscuela (Pre/Post) · Bull-S · Cuestionario de clima escolar · Evaluación final mayo",
+   trimestre:"1T: Detección SociEscuela + formación CEP · 2T: Talleres preventivos · 3T: Evaluación y propuestas mejora"},
+  {num:9,icon:"💙",titulo:"Conducta autolesiva",etapa:"Primaria",ambito:"Convivencia",
+   comp:"Todas las competencias, en especial: CPSAA, CC, CCL",
+   obj:"OBJETIVO GENERAL: Favorecer la detección y la intervención educativa ante situaciones de malestar emocional y conductas autolesivas, mediante actuaciones coordinadas con la comunidad educativa. || OBJETIVO DE ETAPA (LOE-LOMLOE art. 13 · Decretos art. 5): Fomentar la valoración de la salud y el desarrollo afectivo del alumnado desde el respeto, la igualdad y el rechazo a la violencia y los estereotipos. Primaria: k) y m).",
+   familias:"Ecosistema Digital. App CONVI+, píldoras informativas e infografías específicas sobre la detección de señales de alerta (alfabetización).",
+   recursos:"Escala Columbia (riesgo suicida) · Dinámica Nenúfar de los cuidados · Proyecto Semillas · ETPOEP (Gabinete Convivencia)",
+   eval:"Seguimiento individualizado · Actas de coordinación externa · Informe de impacto final",
+   trimestre:"1T: sin activación · 2T: Activación protocolo (enero) · 3T: Seguimiento y cierre coordinado"},
+  // APOYO AL PROCESO ENSEÑANZA-APRENDIZAJE
+  {num:10,icon:"📖",titulo:"Comprensión lectora",etapa:"3.º de Primaria",ambito:"Apoyo al Proceso E-A",
+   comp:"Todas las competencias, en especial: CC, CP, CD, CCL",
+   obj:"OBJETIVO GENERAL: Potenciar la competencia lectora del alumnado, especialmente la comprensión lectora como base del aprendizaje. || OBJETIVO DE ETAPA (LOE-LOMLOE art. 13 · Decretos art. 5): Favorecer el desarrollo de la competencia lectora como base del aprendizaje, junto la autonomía, el pensamiento crítico, la creatividad y la alfabetización digital. Primaria: b), e), f) y h).",
+   familias:"Ecosistema digital: App CONVI+: plataforma de comunicación y recursos sobre pautas de estimulación lingüística en casa (vídeo, audio, interactivos).",
+   recursos:"Lexi-Lumen · Pruebas ACL-2/3 · Método Cornell · Lectómetro · Orientación Andújar · Blog del centro · Solucionayaprende.com",
+   eval:"Evaluación ACL-2 (octubre) y ACL-3 (mayo) · Lectómetro de progreso · Cuestionarios satisfacción lectora",
+   trimestre:"1T: Pre-test ACL-2 · 2T: Plan de Biblioteca y lectura compartida · 3T: Post-test ACL-3 y Feria Literaria"},
+  {num:11,icon:"✅",titulo:"Autoevaluación del alumnado",etapa:"1.er ciclo de Primaria",ambito:"Apoyo al Proceso E-A",
+   comp:"Todas las competencias, en especial: CPSAA, CE, CCL",
+   obj:"OBJETIVO GENERAL: Promover la autoevaluación como estrategia para desarrollar la metacognición y la autonomía del alumnado en su aprendizaje. || OBJETIVO DE ETAPA (LOE-LOMLOE art. 13 · Decretos art. 5): Fomentar la iniciativa personal, el pensamiento crítico y la autonomía en el ámbito escolar. Primaria: b) y c).",
+   familias:"Ecosistema digital. App CONVI+ con repositorio digital donde las familias acceden a recursos y enlaces para acompañar a sus hijos en el proceso de aprendizaje.",
+   recursos:"Semáforo del aprendizaje · Dianas de progreso · Pasaporte metacognitivo · Cuestionarios KPSI · Rúbricas con pictogramas",
+   eval:"Análisis de pasaportes metacognitivos · Diana de progreso Pre/Post · Observación del nivel de autonomía",
+   trimestre:"1T: Reunión de ciclo y diseño colaborativo · 2T: Banco de materiales y aplicación · 3T: Producto visual final"},
+  {num:12,icon:"📚",titulo:"Metodología DUA",etapa:"Educación Primaria",ambito:"Apoyo al Proceso E-A",
+   comp:"Todas las competencias, en especial: CE, CCEC, STEM, CD, CCL",
+   obj:"OBJETIVO GENERAL: Asesorar al profesorado en la aplicación de metodologías inclusivas basadas en el Diseño Universal para el Aprendizaje (DUA) para atender a la diversidad del alumnado. || OBJETIVO DE ETAPA (LOE-LOMLOE art. 13 · Decretos art. 5): Desarrollar la iniciativa, la creatividad y el aprendizaje, respetando la diversidad y utilizando recursos tecnológicos y expresivos variados. Primaria: b), d), g), h) y j).",
+   familias:"Ecosistema digital: App CONVI+: para comunicación accesible y bidireccional con TIC. Infografías de aprendizaje dialógico.",
+   recursos:"Canva · Genially · Kahoot! · Wordwall · Storybird · Aro/Rosco DUA · Estaciones sensoriales · unapizcadeeducacion.com",
+   eval:"Cuestionario de autoeficacia docente DUA (Pre/Post) · Rúbrica de observación de Situaciones de Aprendizaje · Diana de logros",
+   trimestre:"1T: Formación CEP y acuerdo ETCP · 2T: Diseño de SdA y aplicación · 3T: Museo Viviente y evaluación final"}
+];
+
+const i18n={
+  es:{schoolName:"CEIP Campos de Almería",schoolSub:"Centro de Educación Infantil y Primaria · Almería",orTitulo:"Orientación educativa · EOE",conviTitle:"APP CONVI+",conviSub:"Agenda positiva · Triangulación Tutor/a · Orientadora · Familia",conviBadge:"Acceder ahora",equipo:"Equipo de orientación",equipoSub:"Conoce al EOE del centro y sus funciones",cita:"Cita con orientación",citaSub:"Solicita una cita para familias o profesorado",docs:"Documentos y recursos",docsSub:"Guías, protocolos y materiales del EOE",contacto:"Contacto",contactoSub:"Canal directo con el equipo de orientación",actTitulo:"Las 12 actuaciones del plan de intervención",back1:"← Volver a Orientación",agendaSub:"Agenda positiva · Triangulación tutor/a · orientadora · familia",tabMensajes:"Mensajes",tabLogros:"Logros",tabRecursos:"Recursos",tabEval:"Evaluación",tabAct2:"Actividades",tabAct:"Actuaciones",labelDest:"Enviar mensaje a:",labelAct:"Actuación relacionada:",labelMsg:"Mensaje en positivo:",btnEnviar:"Enviar mensaje",convRec:"Conversación reciente",banner:null,rtl:false},
+  fr:{schoolName:"CEIP Campos de Almería",schoolSub:"École primaire publique · Almería (Espagne)",orTitulo:"Orientation éducative · EOE",conviTitle:"APP CONVI+",conviSub:"Agenda positif · Triangulation Tuteur/trice · Conseillère · Famille",conviBadge:"Accéder maintenant",equipo:"Équipe d'orientation",equipoSub:"Découvrez l'équipe EOE et ses fonctions",cita:"Rendez-vous orientation",citaSub:"Demandez un rendez-vous",docs:"Documents et ressources",docsSub:"Guides, protocoles et matériaux de l'EOE",contacto:"Contact",contactoSub:"Contact direct avec l'équipe",actTitulo:"Les 12 actions du plan d'intervention",back1:"← Retour à l'orientation",agendaSub:"Agenda positif · Triangulation tuteur · conseillère · famille",tabMensajes:"Messages",tabLogros:"Réussites",tabRecursos:"Ressources",tabEval:"Évaluation",tabAct2:"Activités",tabAct:"Actions",labelDest:"Envoyer un message à :",labelAct:"Action concernée :",labelMsg:"Message positif :",btnEnviar:"Envoyer",convRec:"Conversation récente",banner:"Version en français activée — Bienvenue à l'APP CONVI+ du CEIP Campos de Almería",rtl:false},
+  da:{schoolName:"CEIP Campos de Almería",schoolSub:"مدرسة ابتدائية عمومية · ألمرية (إسبانيا)",orTitulo:"التوجيه التربوي · EOE",conviTitle:"APP CONVI+",conviSub:"أجندة إيجابية · تواصل ثلاثي: الأستاذ/ة · المرشدة · الأسرة",conviBadge:"الدخول الآن",equipo:"فريق التوجيه",equipoSub:"تعرف على فريق التوجيه ومهامه",cita:"موعد مع التوجيه",citaSub:"اطلب موعداً للأسرة أو الأساتذة",docs:"وثائق وموارد",docsSub:"أدلة وبروتوكولات ومواد فريق التوجيه",contacto:"التواصل",contactoSub:"قناة مباشرة مع فريق التوجيه",actTitulo:"البرامج الـ 12 لخطة التدخل",back1:"→ العودة إلى التوجيه",agendaSub:"أجندة إيجابية · تواصل ثلاثي: الأستاذ/ة · المرشدة · الأسرة",tabMensajes:"رسائل",tabLogros:"إنجازات",tabRecursos:"موارد",tabEval:"التقييم",tabAct2:"الأنشطة",tabAct:"البرامج",labelDest:"إرسال رسالة إلى:",labelAct:"البرنامج المرتبط:",labelMsg:"رسالة إيجابية:",btnEnviar:"إرسال",convRec:"المحادثة الأخيرة",banner:"النسخة بالدارجة المغربية · مرحباً بكم في APP CONVI+ — CEIP Campos de Almería",rtl:true}
+};
+
+let lang='es';
+
+function setLang(l){
+  lang=l;
+  const t=i18n[l];
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${l}')"]`).classList.add('active');
+  const s=(id,v)=>{const e=document.getElementById(id);if(e&&v!=null)e.textContent=v;};
+  s('school-name',t.schoolName);s('school-sub',t.schoolSub);s('txt-or-titulo',t.orTitulo);
+  s('txt-convi-title',t.conviTitle);s('txt-convi-sub',t.conviSub);s('txt-convi-badge',t.conviBadge);
+  s('txt-equipo',t.equipo);s('txt-equipo-sub',t.equipoSub);s('txt-cita',t.cita);s('txt-cita-sub',t.citaSub);
+  s('txt-docs',t.docs);s('txt-docs-sub',t.docsSub);s('txt-contacto',t.contacto);s('txt-contacto-sub',t.contactoSub);
+  s('txt-act-titulo',t.actTitulo);s('txt-back1',t.back1);s('txt-agenda-sub',t.agendaSub);
+  s('tab-btn-mensajes',t.tabMensajes);s('tab-btn-recursos',t.tabRecursos);
+  s('tab-btn-evaluacion',t.tabEval);s('tab-btn-actividades',t.tabAct2);s('tab-btn-actuaciones',t.tabAct);
+  s('txt-label-dest',t.labelDest);s('txt-label-act',t.labelAct);s('txt-label-msg',t.labelMsg);
+  s('txt-btn-enviar',t.btnEnviar);s('txt-conv-rec',t.convRec);
+  const lb=document.getElementById('tab-btn-logros');
+  if(lb)lb.innerHTML=t.tabLogros+' <span class="notif"></span>';
+  document.querySelectorAll('.nav button').forEach(b=>{const v=b.getAttribute('data-'+l);if(v)b.textContent=v;});
+  const ban=document.getElementById('translate-banner');
+  const bt=document.getElementById('banner-text');
+  if(t.banner){ban.classList.remove('hidden');bt.textContent=t.banner;}else{ban.classList.add('hidden');}
+  const panel=document.querySelector('.panel');
+  panel.style.direction=t.rtl?'rtl':'ltr';
+  panel.style.textAlign=t.rtl?'right':'left';
+  renderActs('actuaciones-list','showDetail');
+  renderActs('act-list-agenda','showDetail');
+}
+
+const ambitoColors={
+  'Acción Tutorial':'var(--verde)',
+  'Orientación Académica y Profesional':'var(--azul)',
+  'Atención a la Diversidad':'var(--amarillo)',
+  'Convivencia':'#C0392B',
+  'Apoyo al Proceso E-A':'var(--morado)'
+};
+
+function renderActs(cid,fn){
+  const c=document.getElementById(cid);if(!c)return;
+  let html='';
+  let lastAmbito='';
+  actuaciones.forEach(a=>{
+    if(a.ambito!==lastAmbito){
+      const col=ambitoColors[a.ambito]||'var(--verde)';
+      html+=`<div style="font-size:10px;font-weight:700;color:#fff;background:${col};padding:3px 10px;border-radius:99px;margin:8px 0 4px;display:inline-block;letter-spacing:.05em;text-transform:uppercase">${a.ambito}</div>`;
+      lastAmbito=a.ambito;
+    }
+    html+=`<div class="act-item" onclick="${fn}(${a.num-1})">
+      <div class="act-num">${a.num}</div>
+      <div>
+        <div class="act-name">${a.icon} ${a.titulo}</div>
+        <div class="act-meta">${a.etapa} · ${a.comp}</div>
+      </div>
+    </div>`;
+  });
+  c.innerHTML=html;
+}
+
+function showDetail(i){
+  const a=actuaciones[i];
+  const col=ambitoColors[a.ambito]||'var(--verde)';
+  document.getElementById('detail-content').innerHTML=`
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.1rem">
+      <div style="width:50px;height:50px;border-radius:50%;background:var(--verde-light);display:flex;align-items:center;justify-content:center;font-size:24px;border:1px solid var(--verde-border)">${a.icon}</div>
+      <div>
+        <div style="font-size:10px;font-weight:700;color:#fff;background:${col};padding:2px 10px;border-radius:99px;display:inline-block;margin-bottom:4px;letter-spacing:.05em;text-transform:uppercase">${a.ambito}</div>
+        <h2 style="font-family:'DM Serif Display',serif;font-size:17px;color:var(--text)">Actuación ${a.num}: ${a.titulo}</h2>
+        <p style="font-size:12px;color:var(--text3)">${a.etapa}</p>
+      </div>
+    </div>
+    <div class="detail-box"><div class="dlabel">Objetivo general y de etapa</div><div class="dtext" id="obj-render"></div></div>
+    <div class="detail-box green"><div class="dlabel green">Actuación con familias · CONVI+</div><div class="dtext green">${a.familias}</div></div>
+    <div class="detail-box"><div class="dlabel">Recursos principales</div><div class="dtext">${a.recursos}</div></div>
+    <div class="detail-box purple"><div class="dlabel purple">Evaluación</div><div class="dtext">${a.eval}</div></div>
+    <div class="detail-box"><div class="dlabel">Temporalización trimestral</div><div class="dtext">${a.trimestre}</div></div>
+    <div class="detail-box"><div class="dlabel">Competencias clave</div><div class="dtext">${a.comp}</div></div>
+    <button class="btn" style="margin-top:4px" onclick="showAgenda()">Enviar mensaje sobre esta actuación</button>
+  `;
+  showView('actuacion-detail');
+  // Format obj field: split on || separator
+  const objEl = document.getElementById('obj-render');
+  if(objEl){
+    const parts = a.obj.split(' || ');
+    let html = '';
+    parts.forEach(function(p){
+      if(p.startsWith('OBJETIVO GENERAL:')){
+        html += '<strong style="color:var(--verde-dark)">Objetivo general</strong><br>' + p.replace('OBJETIVO GENERAL: ','') + '<br><br>';
+      } else if(p.startsWith('OBJETIVO DE ETAPA')){
+        const etapaText = p.replace('OBJETIVO DE ETAPA (LOE-LOMLOE art. 13 · Decretos art. 5): ','');
+        html += '<strong style="color:var(--azul)">Objetivo de etapa · LOE-LOMLOE art. 13 y 17 · Decretos art. 5</strong><br>' + etapaText;
+      } else {
+        html += p;
+      }
+    });
+    objEl.innerHTML = html;
+  }
+}
+
+function showPage(p){
+  ['centro','ensenanzas','organizacion','orientacion','eoe','rubrica','registros'].forEach(x=>{const e=document.getElementById('page-'+x);if(e)e.classList.add('hidden');});
+  const e=document.getElementById('page-'+p);if(e)e.classList.remove('hidden');
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  const allBtns=document.querySelectorAll('.nav button');
+  const idx={'centro':0,'ensenanzas':1,'organizacion':2,'orientacion':3,'eoe':4,'rubrica':5,'registros':6};
+  if(idx[p]!==undefined && allBtns[idx[p]])allBtns[idx[p]].classList.add('active');
+}
+function showView(v){
+  ['orientacion-home','agenda','actuacion-detail'].forEach(x=>{const e=document.getElementById('view-'+x);if(e)e.classList.add('hidden');});
+  const e=document.getElementById('view-'+v);if(e)e.classList.remove('hidden');
+}
+function showAgenda(){showView('agenda');showTab('mensajes');}
+function backTo(v){showView(v);}
+function showTab(t){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  ['mensajes','logros','recursos','evaluacion','actividades','actuaciones-tab'].forEach(x=>{const e=document.getElementById('tab-'+x);if(e)e.classList.add('hidden');});
+  document.getElementById('tab-'+t).classList.remove('hidden');
+  const idx={'mensajes':0,'logros':1,'recursos':2,'evaluacion':3,'actividades':4,'actuaciones-tab':5};
+  document.querySelectorAll('.tab')[idx[t]].classList.add('active');
+}
+function enviarMensaje(){
+  const d=document.getElementById('destinatario').value;
+  const t=document.getElementById('msg-text').value;
+  if(!d||!t)return;
+  const toast=document.getElementById('toast');
+  toast.style.display='block';
+  document.getElementById('msg-text').value='';
+  setTimeout(()=>toast.style.display='none',3000);
+}
+
+renderActs('actuaciones-list','showDetail');
+renderActs('act-list-agenda','showDetail');
+showPage('orientacion');showView('orientacion-home');showTab('mensajes');
+</script>
+</body>
+</html>
